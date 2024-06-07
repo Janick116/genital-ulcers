@@ -109,7 +109,7 @@ def decision_tree():
     # PAGE H
     elif st.session_state['page'] == 'H':
         st.subheader("Further Evaluation")
-        st.write("If the initial lab tests are negative and/or the patient did not respond to initial therapy, further evaluation is needed including evaluation for non-STI causes.")
+        st.write("further evaluation is needed.")
         if st.button('Reset'):
             reset_tree()
     
