@@ -66,9 +66,9 @@ def decision_tree():
 
     # PAGE D
     elif st.session_state['page'] == 'D':
-        ulcer_painful = st.radio("Is the ulcer painful?", ('Yes', 'No'), key='ulcer_painful')
+        painful_ulcers = st.radio("Are there any painful ulcers?", ('Yes', 'No'), key='painful_ulcers')
         if st.button('Confirm Pain Status', key='confirm_pain_status'):
-            navigate_page('E' if ulcer_painful == 'Yes' else 'I')
+            navigate_page('E' if painful_ulcers == 'Yes' else 'I')
 
     # PAGE E
     elif st.session_state['page'] == 'E':
@@ -190,5 +190,6 @@ def decision_tree():
 
 if __name__ == '__main__':
     decision_tree()
+
 
 
