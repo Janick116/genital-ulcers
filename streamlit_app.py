@@ -28,10 +28,13 @@ def decision_tree():
             submit = st.form_submit_button("Submit")
 
             if submit:
-                st.session_state['patient_name'] = name
-                st.session_state['birth_date'] = birth_date
-                st.session_state['gender'] = gender
-                navigate_page('B')
+                if name and birth_date and gender:
+                    st.session_state['patient_name'] = name
+                    st.session_state['birth_date'] = birth_date
+                    st.session_state['gender'] = gender
+                    navigate_page('B')
+                else:
+                    st.error("Please fill in all the details.")
 
     # PAGE B
     if st.session_state['page'] == 'B':
@@ -109,7 +112,7 @@ def decision_tree():
     # PAGE H
     elif st.session_state['page'] == 'H':
         st.subheader("Further Evaluation")
-        st.write("further evaluation is needed.")
+        st.write("Further evaluation is needed.")
         if st.button('Reset'):
             reset_tree()
     
@@ -145,7 +148,7 @@ def decision_tree():
 
     # PAGE M
     elif st.session_state['page'] == 'M':
-        lgv_risk = st.radio("Has patient or sexual partner lived or traveled to an LGV-endemic area OR does patient have painful lymphadenopathy present?", ('Yes', 'No'), key='lgv_risk')
+        lgv_risk = st.radio("Has the patient or sexual partner lived or traveled to an LGV-endemic area OR does the patient have painful lymphadenopathy present?", ('Yes', 'No'), key='lgv_risk')
         if st.button('Confirm LGV Risk'):
             navigate_page('N' if lgv_risk == 'Yes' else 'O')
 
@@ -190,6 +193,7 @@ def decision_tree():
 
 if __name__ == '__main__':
     decision_tree()
+
 
 
 
