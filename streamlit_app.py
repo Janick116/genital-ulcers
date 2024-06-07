@@ -147,5 +147,48 @@ def decision_tree():
     elif st.session_state['page'] == 'M':
         lgv_risk = st.radio("Has patient or sexual partner lived or traveled to an LGV-endemic area OR does patient have painful lymphadenopathy present?", ('Yes', 'No'), key='lgv_risk')
         if st.button('Confirm LGV Risk'):
-            navigate_page('N
+            navigate_page('N' if lgv_risk == 'Yes' else 'O')
+
+    # PAGE N
+    elif st.session_state['page'] == 'N':
+        st.subheader("Lymphogranuloma Venereum (LGV) Testing and Treatment")
+        st.write("Testing for LGV is recommended. Administer empiric treatment while awaiting results.")
+        st.table({
+            "Medication": ["Doxycycline"],
+            "Dosage": ["100 mg twice daily"],
+            "Duration": ["21 days"],
+            "Notes": ["LGV treatment"]
+        })
+        if st.button('Further Evaluation Required, Reset Decision Tree'):
+            reset_tree()
+
+    # PAGE O
+    elif st.session_state['page'] == 'O':
+        st.subheader("Further Evaluation Needed")
+        st.write("If the initial tests are negative and/or there is no response to therapy, further evaluation is needed, including evaluation for non-STI causes.")
+        if st.button('Reset Decision Tree'):
+            reset_tree()
+
+    # PAGE P
+    elif st.session_state['page'] == 'P':
+        st.subheader("Empiric Treatment for Syphilis")
+        st.write("Treat empirically for syphilis while awaiting further results.")
+        if st.button('Proceed to Evaluate LGV Risk'):
+            navigate_page('M')
+
+    # PAGE Q
+    elif st.session_state['page'] == 'Q':
+        st.subheader("Further Evaluation for Non-STI Causes")
+        st.write("If the initial tests are negative, further evaluation is needed, including evaluation for non-STI causes.")
+        if st.button('Reset Decision Tree'):
+            reset_tree()
+
+    # General reset button shown at each step for convenience
+    if st.session_state['page'] != 'intro' and not st.session_state['page'] in ['C', 'F']:
+        if st.button('Reset', key=f'reset_{st.session_state["page"]}'):
+            reset_tree()
+
+if __name__ == '__main__':
+    decision_tree()
+
 
